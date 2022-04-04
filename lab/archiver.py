@@ -1,5 +1,5 @@
-import os, re, socket, sys
-import params
+# import os, re, socket, sys
+# import params
 
 def archiver(files):
     byteArr = bytearray()
@@ -9,5 +9,12 @@ def archiver(files):
         with open(path, "rb") as file:
             tmpByteArr = bytearray()
             tmpByteArr = file.read()
-        if (i ==0):
+        if i == 0:
             byteArr = f"{len(tmpByteArr):08d}".encode() + tmpByteArr
+        else:
+            byteArr = byteArr + f"{len(byteArr):08d}".encode() + tmpByteArr
+    return byteArr
+
+
+filenames = {"test1", "test2", "test3"}
+archiver(filenames)
