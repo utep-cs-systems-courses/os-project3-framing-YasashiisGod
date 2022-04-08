@@ -1,20 +1,32 @@
-# import os, re, socket, sys
-# import params
+def archiver(*args):
+    result_array = bytearray()
+    if args:
+        for filename in args:
+            current_path = 'files/' + filename
+            print(filename)
+            with open(current_path, 'rb') as current_file:
+                contents = current_file.read()
 
-def archiver(files):
-    byteArr = bytearray()
+            result_array.extend(
+                bytearray((converter(filename, 2) + filename + converter(len(contents), 10)).encode() + contents))
 
-    for i, fileName in enumerate(files):
-        path = 'files/' + fileName
-        with open(path, "rb") as file:
-            tmpByteArr = bytearray()
-            tmpByteArr = file.read()
-        if i == 0:
-            byteArr = f"{len(tmpByteArr):08d}".encode() + tmpByteArr
-        else:
-            byteArr = byteArr + f"{len(byteArr):08d}".encode() + tmpByteArr
-    return byteArr
+    with open('archive.txt', 'wb') as output:
+        output.write(result_array)
+    return result_array
 
 
-filenames = {"test1", "test2", "test3"}
-archiver(filenames)
+def converter(name_or_contents, digits: int):
+    if type(name_or_contents) == str:
+        result = hex(len(name_or_contents))
+    elif type(name_or_contents) == int:
+        result = hex(name_or_contents)
+    else:
+        raise TypeError('Input is of type ', type(name_or_contents))
+
+    while len(result) != 2 + digits:
+        result = result[:2] + '0' + result[2:]
+
+    return result
+
+
+archiver("test1", "test2", "test3", )
