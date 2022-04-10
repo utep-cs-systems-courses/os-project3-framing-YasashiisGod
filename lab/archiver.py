@@ -31,37 +31,33 @@ def converter(name_or_contents, digits: int):
     return result
 
 
-def exploder(archive: str):
-    def _to_int(num: str) -> int:
-        return int(num, 16)
+def exploder(archive):
+    with open(archive, 'rb') as archived_file:
+        contents = archived_file.read()
+        finish_line = len(contents)
+        progress = 0
 
-    with open(archive, 'rb') as arch_file:
-        data = arch_file.read()
-        data_length = len(data)
-        working_point = 0
+        while progress < finish_line:
+            begin_point = progress
+            progress += 4
+            name_length = int((contents[begin_point:progress].decode()), 16)
 
-        while working_point < data_length:
-            begin_point = working_point
-            working_point += 4
-            name_length = _to_int(data[begin_point:working_point].decode())
-
-            begin_point = working_point
-            working_point += name_length
-            filename = data[begin_point:working_point].decode()
+            begin_point = progress
+            progress += name_length
+            filename = contents[begin_point:progress].decode()
 
             with open(filename, 'wb') as current_file:
-                begin_point = working_point
-                working_point += 12
-                file_length = _to_int(data[begin_point:working_point].decode())
+                begin_point = progress
+                progress += 12
+                file_length = int((contents[begin_point:progress].decode()), 16)
 
-                begin_point = working_point
-                working_point += file_length
-                file_data = data[begin_point:working_point]
+                begin_point = progress
+                progress += file_length
+                file_data = contents[begin_point:progress]
                 current_file.write(file_data)
 
     return 0
 
 
-archiver("test1", "test2", "test3", )
+archiver("QOTD", "Oz", "flirt", )
 exploder("archive.txt")
-
