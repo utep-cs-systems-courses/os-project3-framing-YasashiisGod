@@ -1,6 +1,6 @@
 import socket
 import sys
-from typing import re
+import re
 from fSocket import *
 from lib import params
 from archiver import *

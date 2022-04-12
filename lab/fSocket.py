@@ -8,7 +8,7 @@ class FramingSocket:
 
     def frameWriter(self, compressedFile):
         bytesSent = self.socket.send(compressedFile)
-        compressedFille = compressedFile[bytesSent:]
+        compressedFile = compressedFile[bytesSent:]
 
     def frameReader(self):
         while 1:
