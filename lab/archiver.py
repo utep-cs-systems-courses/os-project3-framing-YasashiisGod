@@ -8,9 +8,8 @@ def archiver(*args):
                 contents = current_file.read()
 
             result_array.extend(
-                bytearray(
-                    (converter(filename, 2) + filename + converter(
-                        len(contents), 10)).encode() + contents))
+                bytearray((converter(filename, 2) + filename + converter(
+                    len(contents), 10)).encode() + contents))
 
     with open('archive.txt', 'wb') as output:
         output.write(result_array)
