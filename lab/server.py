@@ -1,6 +1,6 @@
 import os
 import socket
-
+from lab.fSocket import FramingSocket
 from lib import params
 
 
@@ -29,8 +29,12 @@ def runServer():
     listenAddr = ''  # symbolic name meaning all available interfaces
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # create listening socket
-    s.blind((listenAddr, listenPort))  # bind socket to address (READY TO LISTEN AT A LOC)
+    s.bind((listenAddr, listenPort))  # bind socket to address (READY TO LISTEN AT A LOC)
     s.listen(5)  # Allows 5 connections
 
     while 1:
         conn, addr = s.accept()  # accept incoming request
+        fr = FramingSocket(conn)
+
+
+runServer()
