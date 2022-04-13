@@ -2,13 +2,15 @@ import socket
 import sys
 import re
 from fSocket import *
+
+sys.path.append("../lib")
 from lib import params
-from archiver import *
+from archiver import archiver
 
 
 def client():
     switchesVarDefaults = (
-        (('-s', "--server"), "server", "127.0.0.1.50001"),
+        (('-s', "--server"), "server", "127.0.0.1:50001"),
     )
     paramMap = params.parseParams(switchesVarDefaults)
 

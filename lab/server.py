@@ -1,11 +1,14 @@
 import os
 import socket
-from lab.fSocket import FramingSocket
+import sys
+sys.path.append("../lib")
+
+from fSocket import *
 from lib import params
 
 
-def savetoFiles(contentList):
-    os.chdir("files")
+def savetoFiles(socket, contentList):
+    os.chdir("server")
     directory = os.getcwd()
 
     for content in contentList:
