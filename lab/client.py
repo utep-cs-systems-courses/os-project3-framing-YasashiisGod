@@ -59,6 +59,4 @@ def client():
             fw.frameWriter(archived)
 
 
-
-
 client()
