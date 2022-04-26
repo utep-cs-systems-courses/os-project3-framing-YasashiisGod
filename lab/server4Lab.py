@@ -1,12 +1,12 @@
 import socket
 import threading
 
-HEADER = 64
+HEADER = 100
 PORT = 5050
 SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
-DISCONNECT_MESSAGE = "!DISCONNECT"
+DISCONNECT_MESSAGE = "!F"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
@@ -26,6 +26,7 @@ def handle_client(conn, addr):  # handle each connection
                 connected = False
 
             print(f"[{addr}]{msg}")
+            conn.send("Server has received message...".encode(FORMAT))
 
     conn.close()
 

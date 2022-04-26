@@ -11,8 +11,8 @@ def archiver(*args):
                 bytearray((converter(filename, 2) + filename + converter(
                     len(contents), 10)).encode() + contents))
 
-    with open('archive.txt', 'wb') as output:
-        output.write(result_array)
+    # with open('archive.txt', 'wb') as output:
+    #     output.write(result_array)
     return result_array
 
 
